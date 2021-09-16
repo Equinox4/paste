@@ -1,5 +1,5 @@
 <?php 
-require_once 'RedisConnection.php';
+require_once '../RedisConnection.php';
 
 $redis = RedisConnection::getInstance()->getRedis();
 
