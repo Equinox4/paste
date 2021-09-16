@@ -1,1 +1,0 @@
-https://paste.mjollnir.fr/
