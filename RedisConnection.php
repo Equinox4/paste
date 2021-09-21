@@ -1,16 +1,19 @@
 <?php
-// TODO php 8 -> types
+declare(strict_types = 1);
+
 class RedisConnection {
-    private $redis_instance = null;
-    private static $redis_connection_instance = null;
+    private Redis $redis_instance;
+    private static RedisConnection $redis_connection_instance;
 
     public const DEFAULT_HOST = '127.0.0.1';
     public const DEFAULT_PORT = 6379;
 
-    private $host, $port;
-    private $username, $password;
+    private string $host;
+    private int $port;
+    private ?string $username;
+    private ?string $password;
 
-    private function __construct($host = null, $port = null, $username = null, $password = null) {
+    private function __construct(string $host = null, int $port = null, string $username = null, string $password = null) {
         $this->host = $host ?? self::DEFAULT_HOST;
         $this->port = $host ?? self::DEFAULT_PORT;
         $this->username = $username;
@@ -20,11 +23,11 @@ class RedisConnection {
         $this->init();
     }
 
-    private function init() {
+    private function init(): void {
         $can_connect = $this->redis_instance->connect($this->host, $this->port);
 
         if (!$can_connect) {
-            echo "Sorry, can't connect to Redis :("; // faire un système de gestion d'erreurs
+            echo 'Sorry, can\'t connect to Redis :('; // faire un système de gestion d'erreurs
             exit(0);
         }
 
@@ -33,15 +36,15 @@ class RedisConnection {
         }
     }
 
-    public static function getInstance() {
-        if (is_null(self::$redis_connection_instance)) {
+    public static function getInstance(): RedisConnection {
+        if (!isset(self::$redis_connection_instance)) {
             self::$redis_connection_instance = new RedisConnection();
         }
 
         return self::$redis_connection_instance;
     }
 
-    public function getRedis() {
+    public function getRedis(): Redis {
         return $this->redis_instance;
     }
 }
