@@ -1,7 +1,5 @@
-<?php 
+<?php
 require_once '../RedisConnection.php';
-
-$redis = RedisConnection::getInstance()->getRedis();
 
 if (empty($_GET['id'])) {
     header('Location: /');
@@ -10,6 +8,7 @@ if (empty($_GET['id'])) {
 
 $display_modes = [ 0 => 'raw', 1 => 'source_code' ];
 
+$redis = RedisConnection::getInstance()->getRedis();
 $key = $_GET['id'];
 
 if (!$redis->exists($key)) {
@@ -20,7 +19,8 @@ if (!$redis->exists($key)) {
 $content = $redis->get($key);
 
 if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
-    echo htmlspecialchars($content); // faire un vrai mode raw
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo $content;
     exit(0);
 }
 
@@ -34,14 +34,18 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
     <link href="data:;," rel="icon"/>
 </head>
 <body>
-<pre>
-<?= htmlspecialchars($content) ?>
-</pre>
-<hr/>
-<p>Lien cours: <code>https://paste.mjollnir.fr/v/<?= $key ?></code></p>
-<p>Texte brut: <code>https://paste.mjollnir.fr/r/<?= $key ?></code></p>
-<p>Ce paste expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key)) : 'longtemps' ?></p>
-<p><a href="/">[ Accueil ]</a></p>
-<!-- TODO ajouter differents modes pour render: source code, raw -->
+    <pre><?= htmlspecialchars($content) ?></pre>
+    <hr/>
+    <p>Lien direct:
+        <code>https://paste.mjollnir.fr/v/<?= $key ?></code>
+    </p>
+    <p>Texte brut:
+        <code>https://paste.mjollnir.fr/r/<?= $key ?></code>
+    </p>
+    <p>Ce paste expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key)) : 'longtemps' ?></p>
+    <p>
+        <a href="/">[ Accueil ]</a>
+    </p>
+    <!-- TODO ajouter differents modes pour render: source code, raw -->
 </body>
 </html>
