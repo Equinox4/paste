@@ -8,7 +8,10 @@ if (empty($_GET['id'])) {
 
 $display_modes = [ 0 => 'raw', 1 => 'source_code' ];
 
-$redis = RedisConnection::getInstance()->getRedis();
+$redis_user_env = getenv('REDIS_USER') | null;
+$redis_password_env = getenv('REDIS_PASSWORD') | null;
+$redis = RedisConnection::getInstance(username: $redis_user_env, password: $redis_password_env)->getRedis();
+
 $key = $_GET['id'];
 
 if (!$redis->exists($key)) {

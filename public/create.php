@@ -34,7 +34,10 @@ else {
     }
 }
 
-$redis = RedisConnection::getInstance()->getRedis();
+$redis_user_env = getenv('REDIS_USER') | null;
+$redis_password_env = getenv('REDIS_PASSWORD') | null;
+$redis = RedisConnection::getInstance(username: $redis_user_env, password: $redis_password_env)->getRedis();
+
 $can_create = $redis->setNx($content_id, $post_content);
 if (!$can_create) {
     echo 'Failed to create paste :( Please retry';

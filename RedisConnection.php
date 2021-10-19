@@ -36,9 +36,9 @@ class RedisConnection {
         }
     }
 
-    public static function getInstance(): RedisConnection {
+    public static function getInstance(string $host = null, int $port = null, string $username = null, string $password = null): RedisConnection {
         if (!isset(self::$redis_connection_instance)) {
-            self::$redis_connection_instance = new RedisConnection();
+            self::$redis_connection_instance = new RedisConnection($host, $port, $username, $password);
         }
 
         return self::$redis_connection_instance;
