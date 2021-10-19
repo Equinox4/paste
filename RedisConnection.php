@@ -8,16 +8,9 @@ class RedisConnection {
     public const DEFAULT_HOST = '127.0.0.1';
     public const DEFAULT_PORT = 6379;
 
-    private string $host;
-    private int $port;
-    private ?string $username;
-    private ?string $password;
-
-    private function __construct(string $host = null, int $port = null, string $username = null, string $password = null) {
-        $this->host = $host ?? self::DEFAULT_HOST;
-        $this->port = $host ?? self::DEFAULT_PORT;
-        $this->username = $username;
-        $this->password = $password;
+    private function __construct(private ?string $host, private ?int $port, private ?string $username, private ?string $password) {
+        $this->host = $this->host ?? self::DEFAULT_HOST;
+        $this->port = $this->port ?? self::DEFAULT_PORT;
 
         $this->redis_instance = new Redis();
         $this->init();
