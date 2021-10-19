@@ -32,15 +32,16 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
     <title>Paste - Render</title>
 
     <link href="data:;," rel="icon"/>
+    <link rel="stylesheet" href="/assets/css/render.css"/>
 </head>
 <body>
     <pre><?= htmlspecialchars($content) ?></pre>
     <hr/>
     <p>Lien direct:
-        <code>https://paste.mjollnir.fr/v/<?= $key ?></code>
+        <code class="selectable">https://paste.mjollnir.fr/v/<?= $key ?></code>
     </p>
     <p>Texte brut:
-        <code>https://paste.mjollnir.fr/r/<?= $key ?></code>
+        <code class="selectable">https://paste.mjollnir.fr/r/<?= $key ?></code>
     </p>
     <p>Ce paste expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key)) : 'longtemps' ?></p>
     <p>
