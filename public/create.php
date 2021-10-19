@@ -13,7 +13,7 @@ const ALLOWED_DURATIONS = [ 3_600, 7_200, 43_200, 86_400 ]; // in seconds
 $post_content = $_POST['content'];
 $post_duration = $_POST['duration'];
 
-if (strlen($post_content) > MAX_CONTENT_LEN) {
+if (mb_strlen($post_content) > MAX_CONTENT_LEN) {
     echo 'Too long content.';
     exit(0);
 }
@@ -24,12 +24,12 @@ if (!in_array($post_duration, ALLOWED_DURATIONS)) {
 }
 
 if (empty($_POST['custom_id'])) {
-    $content_id = bin2hex(random_bytes(4));
+    $content_id = bin2hex(random_bytes(5));
 }
 else {
     $content_id = $_POST['custom_id'];
     if (strlen($content_id) > MAX_CUSTOM_ID_LEN) {
-        echo 'Too long id';
+        echo 'Too long id.';
         exit(0);
     }
 }
