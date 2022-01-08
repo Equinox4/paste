@@ -7,7 +7,7 @@ if (empty($_POST['content']) || empty($_POST['duration'])) {
 }
 
 const MAX_CONTENT_LEN = 100_000; // in characters
-const MAX_CUSTOM_ID_LEN = 10;
+const MAX_CUSTOM_ID_LEN = 10; // in characters
 const ALLOWED_DURATIONS = [ 3_600, 7_200, 43_200, 86_400 ]; // in seconds
 
 $post_content = $_POST['content'];
@@ -28,7 +28,7 @@ if (empty($_POST['custom_id'])) {
 }
 else {
     $content_id = $_POST['custom_id'];
-    if (strlen($content_id) > MAX_CUSTOM_ID_LEN) {
+    if (mb_strlen($content_id) > MAX_CUSTOM_ID_LEN) {
         echo 'Too long id.';
         exit(0);
     }
