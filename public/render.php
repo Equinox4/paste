@@ -35,7 +35,7 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
     <title>Paste - Render</title>
 
     <link href="data:;," rel="icon"/>
-    <link rel="stylesheet" href="/assets/css/render.css"/>
+    <link rel="stylesheet" integrity="sha384-x8jSgUCxA32wqRC2TDKCnU2RQXoqYGaDdAF74xyetETQDx4HDg9PkkfAE97QXE9C" href="/assets/css/render.css"/>
 </head>
 <body>
     <pre><?= htmlspecialchars($content) ?></pre>
