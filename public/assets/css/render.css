@@ -2,7 +2,3 @@ pre
 {
     overflow-x: scroll;
 }
-.selectable
-{
-    user-select: all;
-}

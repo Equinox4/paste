@@ -6,8 +6,6 @@ if (empty($_GET['id'])) {
     exit(0);
 }
 
-$display_modes = [ 0 => 'raw', 1 => 'source_code' ];
-
 $redis_user_env = getenv('REDIS_USER') | null;
 $redis_password_env = getenv('REDIS_PASSWORD') | null;
 $redis = RedisConnection::getInstance(username: $redis_user_env, password: $redis_password_env)->getRedis();
@@ -27,6 +25,9 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
     exit(0);
 }
 
+$classic_link = 'https://paste.mjollnir.fr/v/' . htmlspecialchars($key);
+$raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,21 +36,20 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
     <title>Paste - Render</title>
 
     <link href="data:;," rel="icon"/>
-    <link rel="stylesheet" integrity="sha384-x8jSgUCxA32wqRC2TDKCnU2RQXoqYGaDdAF74xyetETQDx4HDg9PkkfAE97QXE9C" href="/assets/css/render.css"/>
+    <link rel="stylesheet" integrity="sha384-3l9xqGs/MbAG97dTUtXt3vCDu/5wOhj/N/Nkl1vOyMTi4OhGna6CD+8jBDsQUpao" href="/assets/css/render.css"/>
 </head>
 <body>
     <pre><?= htmlspecialchars($content) ?></pre>
     <hr/>
     <p>Lien direct:
-        <code class="selectable">https://paste.mjollnir.fr/v/<?= htmlspecialchars($key) ?></code>
+        <a href="<?= $classic_link ?>"><?= $classic_link ?></a>
     </p>
     <p>Texte brut:
-        <code class="selectable">https://paste.mjollnir.fr/r/<?= htmlspecialchars($key) ?></code>
+        <a href="<?= $raw_link ?>"><?= $raw_link ?></a>
     </p>
-    <p>Ce paste expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key)) : 'longtemps' ?></p>
+    <p>Ce document expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key)) : 'longtemps' ?></p>
     <p>
         <a href="/">[ Accueil ]</a>
     </p>
-    <!-- TODO ajouter differents modes pour render: source code, raw -->
 </body>
 </html>
