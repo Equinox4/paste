@@ -2,47 +2,43 @@
 declare(strict_types = 1);
 
 class RedisConnection {
-    private Redis $redis_instance;
-    private static RedisConnection $redis_connection_instance;
+	private Redis $redis;
+	private static RedisConnection $redis_connection;
 
-    public const DEFAULT_HOST = '127.0.0.1';
-    public const DEFAULT_PORT = 6379;
+	public const DEFAULT_HOST = '127.0.0.1';
+	public const DEFAULT_PORT = 6379;
 
-    private function __construct(
-        private ?string $host,
-        private ?int $port,
-        private ?string $username,
-        private ?string $password,
-    ) {
-        $this->host = $this->host ?? self::DEFAULT_HOST;
-        $this->port = $this->port ?? self::DEFAULT_PORT;
+	private function __construct(private ?string $host = null, private ?int $port = null) {
+		$this->host = $this->host ?? self::DEFAULT_HOST;
+		$this->port = $this->port ?? self::DEFAULT_PORT;
 
-        $this->redis_instance = new Redis();
-        $this->init();
-    }
+		$this->redis = new Redis();
+	}
 
-    private function init(): void {
-        $can_connect = $this->redis_instance->connect($this->host, $this->port);
+	public static function getInstance(?string $host = null, ?int $port = null): RedisConnection {
+		if (!isset(self::$redis_connection)) {
+			self::$redis_connection = new RedisConnection($host, $port);
+		}
 
-        if (!$can_connect) {
-            echo 'Sorry, can\'t connect to Redis :('; // faire un système de gestion d'erreurs
-            exit(0);
-        }
+		return self::$redis_connection;
+	}
 
-        if ($this->username) {
-            $this->redis_instance->auth([ $this->username, $this->password ]);
-        }
-    }
+	public function getRedis(): Redis {
+		return $this->redis;
+	}
 
-    public static function getInstance(string $host = null, int $port = null, string $username = null, string $password = null): RedisConnection {
-        if (!isset(self::$redis_connection_instance)) {
-            self::$redis_connection_instance = new RedisConnection($host, $port, $username, $password);
-        }
+	public function setCredentials(string $username, ?string $password): void {
+		$this->redis->auth([ $username, $password ]);
+	}
 
-        return self::$redis_connection_instance;
-    }
+	public function connect(): Redis {
+		$can_connect = $this->redis->connect($this->host, $this->port);
 
-    public function getRedis(): Redis {
-        return $this->redis_instance;
-    }
+		if (!$can_connect) {
+			echo 'Can\'t connect to redis.';
+			exit(0);
+		}
+
+		return $this->redis;
+	}
 }

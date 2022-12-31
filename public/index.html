@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8"/>
-    <title>Paste</title>
+	<meta charset="utf-8"/>
+	<title>Paste</title>
 
-    <link href="data:;,"   rel="icon"/>
-    <link rel="stylesheet" integrity="sha384-x6L1uMMKq5xrN8ndg2SRbitgQJK+vQD2EtdnMPquxWloceu4ub/ywu6jyLUoLjtN" href="/assets/css/main.css"/>
+	<link href="data:;base64,iVBORw0KGgo=" rel="icon"/>
+	<link rel="stylesheet" integrity="sha384-IL8UTCa6yBydKEThPwJmKUtxRS2BmAAnX2yH/bu+oOR1IxZVlAvICNQ9I4bZF8LT" href="/assets/css/main.css"/>
 </head>
 <body>
-    <h4>Texte ephémère</h4>
-    <p>
-Vous pouvez créer ici un document qui sera stocké et accessible pour une durée maximale de 24 heures.<br/>
-Les documents créés sont stockés en RAM et ne sont pas conservés au dela limite sélectionnée dans le formulaire ci-dessous.<br/>
-En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'a son expiration, par exemple: <a href="https:
-//paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a>
-    </p>
-    <form method="POST" action="create.php" enctype="multipart/form-data">
-        <fieldset>
-            <label for="input_content">Votre texte:</label>
-            <textarea id="input_content" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
-        </fieldset>
-        <fieldset>
-            <label for="input_duration">Durée de vie du paste:</label>
-            <select id="input_duration" name="duration" required>
-                <option value="3600" selected>1 heure</option>
-                <option value="7200">2 heures</option>
-                <option value="43200">12 heures</option>
-                <option value="86400">24 heures</option>
-            </select>
-            <label for="input_custom_id">Id personnalisé (optionnel):</label>
-            <input type="text" id="input_custom_id" name="custom_id" placeholder="10 caractères maximum" maxlength="10"/>
-            <input type="submit" value="Enregistrer"/>
-        </fieldset>
-    </form>
-    <footer>Powered by Redis & PHP 8</footer>
+	<h4>Texte ephémère</h4>
+	<p>Vous pouvez créer ici un document texte qui sera stocké et accessible pour une durée maximale de 24 heures.<br/>
+Les documents créés ne sont pas conservés au-delà de la limite sélectionnée dans le formulaire ci-dessous.<br/>
+En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'à son expiration, par exemple: <a href="https://paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a></p>
+	<p><strong>Attention: </strong>Ce service est fourni tel quel sans aucune garantie, il peut être arrêté à tout instant et la pérennité de vos documents n'est pas assurée.<br/>
+Veuillez ne pas stocker d'informations sensibles dans votre document, toute personne se trouvant en possession du lien peut y accéder librement.</p>
+	<form method="POST" action="create.php" enctype="multipart/form-data">
+		<fieldset>
+			<label for="input_content">Votre texte:</label>
+			<textarea id="input_content" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
+		</fieldset>
+		<fieldset>
+			<label for="input_duration">Durée de vie du document:</label>
+			<select id="input_duration" name="duration" required>
+				<option value="">-- Sélectionnez la durée de vie du document --</option>
+				<option value="3600" selected>1 heure</option>
+				<option value="7200">2 heures</option>
+				<option value="43200">12 heures</option>
+				<option value="86400">24 heures</option>
+			</select>
+			<label for="input_custom_id">Identifiant personnalisé (optionnel):</label>
+			<input type="text" id="input_custom_id" name="custom_id" placeholder="10 caractères maximum" maxlength="10"/>
+			<input type="submit" value="Enregistrer"/>
+		</fieldset>
+		</form>
+	<footer>Propulsé par Redis & PHP 8</footer>
 </body>
 </html>
