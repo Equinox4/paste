@@ -4,17 +4,24 @@
 	<meta charset="utf-8"/>
 	<title>Paste</title>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="data:;base64,iVBORw0KGgo=" rel="icon"/>
 	<link rel="stylesheet" integrity="sha384-fDOgTHJii76ghovYFrhNFdt+X9tHEqQ6VVoh8+RmJHrzv2wIYndtr25603LTCNEq" href="/assets/css/main.css"/>
 </head>
 <body>
 	<main>
-		<h4>Texte ephémère</h4>
-		<p>Vous pouvez créer ici un document texte qui sera stocké et accessible pour une durée maximale de 24 heures.<br/>
-		Les documents créés ne sont pas conservés au-delà de la limite sélectionnée dans le formulaire ci-dessous.<br/>
-		En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'à son expiration, par exemple: <a href="https://paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a></p>
-		<p><strong>Attention: </strong>Ce service est fourni tel quel sans aucune garantie, il peut être arrêté à tout instant et la pérennité de vos documents n'est pas assurée.<br/>
-		Veuillez ne pas stocker d'informations sensibles dans votre document, toute personne se trouvant en possession du lien peut y accéder librement.</p>
+		<h1>Texte ephémère</h1>
+		<p>
+			Vous pouvez créer ici un document texte qui sera stocké et accessible pour une durée maximale de 24 heures.<br/>
+			Les documents créés ne sont pas conservés au-delà de la limite sélectionnée dans le formulaire ci-dessous.<br/>
+			En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'à son expiration, par exemple: 
+			<a href="https://paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a>
+		</p>
+		<p>
+			<strong>Attention:</strong><br/>
+			Ce service est fourni tel quel sans aucune garantie, il peut être arrêté à tout instant et la pérennité de vos documents n'est pas assurée.<br/>
+			Veuillez ne pas stocker d'informations sensibles dans votre document, toute personne se trouvant en possession du lien peut y accéder librement.
+		</p>
 		<form method="POST" action="create.php" enctype="multipart/form-data">
 			<fieldset>
 				<label for="input_content">Votre texte:</label>
@@ -23,8 +30,8 @@
 			<fieldset>
 				<label for="input_duration">Durée de vie du document:</label>
 				<select id="input_duration" name="duration" required>
-					<option value="">-- Sélectionnez la durée de vie du document --</option>
-					<option value="3600" selected>1 heure</option>
+					<option value="" hidden selected>-- Sélectionnez la durée de vie du document --</option>
+					<option value="3600">1 heure</option>
 					<option value="7200">2 heures</option>
 					<option value="43200">12 heures</option>
 					<option value="86400">24 heures</option>
@@ -35,6 +42,6 @@
 			</fieldset>
 		</form>
 	</main>
-	<footer>Propulsé par Redis & PHP 8 &bull; Conçu avec·&hearts;·en·&#x1f1eb;&#x1f1f7;</footer>
+	<footer>Propulsé par PHP 8 & Redis &bull; Conçu avec &hearts; en &#x1f1eb;&#x1f1f7;</footer>
 </body>
 </html>
