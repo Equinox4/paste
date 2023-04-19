@@ -1,5 +1,5 @@
 <?php
-require_once '../RedisConnection.php';
+require_once dirname(__DIR__) . '/RedisConnection.php';
 
 if (empty($_POST['content']) || empty($_POST['duration'])) {
 	header('Location: /');

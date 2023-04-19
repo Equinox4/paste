@@ -2,11 +2,16 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8"/>
-	<title>Paste</title>
+	<title>Texte ephémère | Créer un document</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="application-name" content="Texte ephémère"/>
+	<meta name="author"           content="Mjöllnir"/>
+	<meta name="description"      content="Service en ligne vous permettant de créer et de partager des documents texte sur une courte durée."/>
+	<meta name="theme-color"      content="#33b8ff"/>
+	<meta name="viewport"         content="width=device-width, initial-scale=1">
+
 	<link href="data:;base64,iVBORw0KGgo=" rel="icon"/>
-	<link rel="stylesheet" integrity="sha384-fDOgTHJii76ghovYFrhNFdt+X9tHEqQ6VVoh8+RmJHrzv2wIYndtr25603LTCNEq" href="/assets/css/main.css"/>
+	<link rel="stylesheet" href="/assets/css/main.css" integrity="sha384-E5NlHu/IGazCKtFH7TjcsNehLP0VD8YQk0QV/A6NEQfz5xymZ2QcpZnWREoxYGvP"/>
 </head>
 <body>
 	<main>
@@ -14,8 +19,8 @@
 		<p>
 			Vous pouvez créer ici un document texte qui sera stocké et accessible pour une durée maximale de 24 heures.<br/>
 			Les documents créés ne sont pas conservés au-delà de la limite sélectionnée dans le formulaire ci-dessous.<br/>
-			En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'à son expiration, par exemple: 
-			<a href="https://paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a>
+			En cliquant sur "Enregistrer", vous obtenez un lien unique qui permet de consulter votre document jusqu'à son expiration, par exemple:
+			 <a href="https://paste.mjollnir.fr/v/hello">https://paste.mjollnir.fr/v/hello</a>
 		</p>
 		<p>
 			<strong>Attention:</strong><br/>
@@ -24,19 +29,18 @@
 		</p>
 		<form method="POST" action="create.php" enctype="multipart/form-data">
 			<fieldset>
-				<label for="input_content">Votre texte:</label>
-				<textarea id="input_content" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
-			</fieldset>
-			<fieldset>
-				<label for="input_duration">Durée de vie du document:</label>
-				<select id="input_duration" name="duration" required>
+				<legend>Formulaire de création du document</legend>
+				<label for="input_content">Votre texte (requis):</label>
+				<textarea id="input_content" class="required_formfield" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
+				<label for="input_duration">Durée de vie du document (requis):</label>
+				<select id="input_duration" class="required_formfield" name="duration" required>
 					<option value="" hidden selected>-- Sélectionnez la durée de vie du document --</option>
 					<option value="3600">1 heure</option>
 					<option value="7200">2 heures</option>
 					<option value="43200">12 heures</option>
 					<option value="86400">24 heures</option>
 				</select>
-				<label for="input_custom_id">Identifiant personnalisé (optionnel):</label>
+				<label for="input_custom_id">Identifiant personnalisé (optionnel) <span class="info" title="Vous pouvez donner un identifiant personnalisé à votre document, par défaut il est généré aléatoirement.">&#x24D8;</span>:</label>
 				<input type="text" id="input_custom_id" name="custom_id" placeholder="10 caractères maximum" maxlength="10"/>
 				<input type="submit" value="Enregistrer"/>
 			</fieldset>

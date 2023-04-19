@@ -1,5 +1,5 @@
 <?php
-require_once '../RedisConnection.php';
+require_once dirname(__DIR__) . '/RedisConnection.php';
 
 if (empty($_GET['id'])) {
 	header('Location: /');
@@ -40,10 +40,16 @@ $raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
 <html lang="fr">
 <head>
 	<meta charset="utf-8"/>
-	<title>Paste - Render</title>
+	<title>Texte ephémère | Consulter un document</title>
 
-	<link href="data:;," rel="icon"/>
-	<link rel="stylesheet" integrity="sha384-qBxW2JkHPMxlr1uNQSBJ5dtYh/6zbe9EGQcPKxrdQxj3RQZG9SxSAdFfDAsl2l/j" href="/assets/css/render.css"/>
+	<meta name="application-name" content="Texte ephémère"/>
+    <meta name="author"           content="Mjöllnir"/>
+    <meta name="description"      content="Service en ligne vous permettant de créer et de partager des documents texte sur une courte durée."/>
+    <meta name="theme-color"      content="#33b8ff"/>
+	<meta name="viewport"         content="width=device-width, initial-scale=1">
+
+	<link href="data:;base64,iVBORw0KGgo=" rel="icon"/>
+	<link rel="stylesheet" integrity="sha384-hxdtynUOO7Tr/2atQIx2xbhzKbVvGcXKKIAylVtB5GPjhVxfF5rW4jd20bFavGt1" href="/assets/css/render.css"/>
 </head>
 <body>
 	<pre><?= htmlspecialchars($content) ?></pre>

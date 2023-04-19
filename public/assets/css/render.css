@@ -1,5 +1,5 @@
 pre
 {
-	overflow-x: scroll;
+	overflow-x: auto;
 	min-height: 2rem; /* fix for broken scroll bar on firefox 106.0.5 */
 }
