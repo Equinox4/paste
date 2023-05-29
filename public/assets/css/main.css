@@ -53,36 +53,17 @@ textarea, select, input
 {
 	height: 2rem;
 }
-/*
-input[type="submit"]
-{
-	font-size: 0.9rem;
-}
-*/
+
 legend
 {
 	margin: auto;
 }
-
-/*
-select[name=duration], input[name="custom_id"]
-{
-	margin-bottom: 1rem;
-}
-*/
-
 
 footer
 {
 	text-align: center;
 	font-size: 0.8em;
 	color: dimgray;
-}
-
-.required_formfield:invalid ~ input[type="submit"]
-{
-	pointer-events: none;
-	opacity: 0.5;
 }
 
 .info

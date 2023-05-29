@@ -11,14 +11,15 @@ $redis_password_env = getenv('REDIS_PASSWORD') | null;
 
 $redis_connection = RedisConnection::getInstance();
 if (!empty($redis_user_env)) {
-    $redis_connection->setCredentials($redis_user_env, $redis_password_env);
+	$redis_connection->setCredentials($redis_user_env, $redis_password_env);
 }
 $redis = $redis_connection->connect();
 
-$key = $_GET['id'];
+$key = urldecode($_GET['id']);
 
 if (!$redis->exists($key)) {
-	header('Location: /');
+	http_response_code(404);
+	echo 'Ce document est introuvable :/';
 	exit(0);
 }
 
@@ -40,15 +41,22 @@ $raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
 <html lang="fr">
 <head>
 	<meta charset="utf-8"/>
-	<title>Texte ephémère | Consulter un document</title>
+	<title>Texte ephémère | Visualiser un document</title>
 
 	<meta name="application-name" content="Texte ephémère"/>
-    <meta name="author"           content="Mjöllnir"/>
-    <meta name="description"      content="Service en ligne vous permettant de créer et de partager des documents texte sur une courte durée."/>
-    <meta name="theme-color"      content="#33b8ff"/>
+	<meta name="author"           content="Mjöllnir"/>
+	<meta name="description"      content="Service en ligne de création et de partage de documents textuels sur une courte durée."/>
+	<meta name="theme-color"      content="#33b8ff"/>
 	<meta name="viewport"         content="width=device-width, initial-scale=1">
 
-	<link href="data:;base64,iVBORw0KGgo=" rel="icon"/>
+	<meta property="og:site_name"   content="Texte ephémère">
+	<meta property="og:title"       content="Visualiser un document">
+	<meta property="og:description" content="Service en ligne de création et de partage de documents textuels sur une courte durée.">
+	<meta property="og:image"       content="/assets/images/icons/paste_icon_128.png">
+	<meta property="og:type"        content="website">
+	<meta property="og:url"         content="https://paste.mjollnir.fr">
+
+	<link href="/assets/images/icons/paste_icon_16.png" rel="icon"/>
 	<link rel="stylesheet" integrity="sha384-hxdtynUOO7Tr/2atQIx2xbhzKbVvGcXKKIAylVtB5GPjhVxfF5rW4jd20bFavGt1" href="/assets/css/render.css"/>
 </head>
 <body>

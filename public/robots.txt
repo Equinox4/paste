@@ -1,2 +1,5 @@
 user-agent: *
-disallow: /v/hello
+Disallow: /v/hello
+
+User-agent: AdsBot-Google
+Disallow: /
