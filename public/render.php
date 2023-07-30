@@ -68,7 +68,7 @@ $raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
 	<p>Texte brut:
 		<a href="<?= $raw_link ?>"><?= $raw_link ?></a>
 	</p>
-	<p>Ce document expire dans: <?= $redis->ttl($key) >= 0 ? gmdate("H\Hi:s", $redis->ttl($key) - 1) : 'longtemps' ?></p>
+	<p>Ce document expire dans: <time datetime="<?= gmdate("H:i:s", $redis->ttl($key) - 1) ?>"><?= gmdate("H\Hi:s", $redis->ttl($key) - 1) ?></time></p>
 	<p>
 		<a href="/">[ Accueil ]</a>
 	</p>

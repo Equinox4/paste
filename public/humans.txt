@@ -1,0 +1,7 @@
+/* TEAM */
+Me: Made with love by Mjöllnir in France
+Discord: mjollnir4
+
+/* SITE */
+Last update:2023-07-18
+IDE: Nano

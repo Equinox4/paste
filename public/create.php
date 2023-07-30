@@ -14,7 +14,7 @@ const ALLOWED_DURATIONS    = [ 3_600, 7_200, 43_200, 86_400 ]; // seconds
 $post_content  = $_POST['content'];
 $post_duration = $_POST['duration'];
 
-// Calculate length from the HTML spec
+// Calculate textarea length from the HTML spec
 $len_content = strlen(mb_convert_encoding($post_content, 'UTF-16', 'UTF-8')) / 2 - mb_substr_count($post_content, "\r\n", 'UTF-8');
 
 if ($len_content > MAX_CONTENT_LEN) {
