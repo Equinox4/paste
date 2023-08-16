@@ -24,6 +24,7 @@ body
 	display: flex;
 	flex-direction: column;
 	max-width: 80rem;
+	padding: 0 1rem 0 1rem;
 }
 
 main
