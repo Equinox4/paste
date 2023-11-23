@@ -12,8 +12,8 @@ const MAX_CUSTOM_ID_LEN    = 10;      // characters
 const DEFAULT_RAND_ID_LEN  = 5;       // bytes
 const ALLOWED_DURATIONS    = [ 3_600, 7_200, 43_200, 86_400 ]; // seconds
 
-$post_content  = $_POST['content'];
-$post_duration = $_POST['duration'];
+$post_content  = (string) $_POST['content'];
+$post_duration = (int) $_POST['duration'];
 
 // Calculate textarea length from the HTML spec
 $len_content = strlen(mb_convert_encoding($post_content, 'UTF-16', 'UTF-8')) / 2 - mb_substr_count($post_content, "\r\n", 'UTF-8');
