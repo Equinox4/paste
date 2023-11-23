@@ -18,7 +18,7 @@
 	<meta property="og:url"         content="https://paste.mjollnir.fr">
 
 	<link href="/assets/images/icons/paste_icon_16.png" rel="icon"/>
-	<link rel="stylesheet" href="/assets/css/main.css" integrity="sha384-dlTKb8pLDc2HnoIjTMuqy9NH+0Ot8lnEWnYr06cA/8AqrGDi9QcjnwPhH8ldjEtw"/>
+	<link rel="stylesheet" href="/assets/css/main.css" integrity="sha384-Mhu66BE87Rm0Slasg3wR8Pat5ck2u9+o+TrW1h7RtiC6/qbKlMpUOMWBsXTXq3Se"/>
 </head>
 <body>
 	<main>
@@ -36,20 +36,24 @@
 		<form method="POST" action="create.php" enctype="multipart/form-data">
 			<fieldset>
 				<legend>Formulaire de création du document</legend>
-				<label for="input_content">Votre texte (requis):</label>
-				<textarea id="input_content" class="required_formfield" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
-				<label for="input_duration">Durée de vie du document (requis):</label>
-				<select id="input_duration" class="required_formfield" name="duration" required>
-					<option value="" hidden selected>-- Sélectionnez la durée de vie du document --</option>
-					<option value="3600">1 heure</option>
-					<option value="7200">2 heures</option>
-					<option value="43200">12 heures</option>
-					<option value="86400">24 heures</option>
-				</select>
-				<label for="input_custom_id">Identifiant personnalisé (optionnel) <span class="info" title="Vous pouvez donner un identifiant personnalisé à votre document, par défaut il est généré aléatoirement.">&#x24D8;</span>:</label>
-				<input type="text" id="input_custom_id" name="custom_id" placeholder="10 caractères maximum" maxlength="10"/>
+				<section>
+					<label for="input_content">Votre texte (requis):</label>
+					<textarea id="input_content" class="required_formfield" name="content" placeholder="100 000 caractères maximum" maxlength="100000" required></textarea>
+				</section>
+				<section>
+					<label for="input_duration">Durée de vie du document (requis):</label>
+					<select id="input_duration" class="required_formfield" name="duration" required>
+						<option value="" hidden selected>-- Sélectionnez la durée de vie du document --</option>
+						<option value="3600">1 heure</option>
+						<option value="7200">2 heures</option>
+						<option value="43200">12 heures</option>
+						<option value="86400">24 heures</option>
+					</select>
+					<label for="input_custom_id">Identifiant personnalisé (optionnel) <span class="info" title="Vous pouvez donner un identifiant personnalisé à votre document, par défaut il est généré aléatoirement.">&#x24D8;</span>:</label>
+					<input type="text" id="input_custom_id" name="custom_id" placeholder="10 caractères maximum" maxlength="10"/>
 
-				<input type="submit" value="Enregistrer"/>
+					<input type="submit" value="Enregistrer"/>
+				</section>
 			</fieldset>
 		</form>
 	</main>
