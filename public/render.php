@@ -61,17 +61,17 @@ $raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
 	<link rel="stylesheet" integrity="sha384-hxdtynUOO7Tr/2atQIx2xbhzKbVvGcXKKIAylVtB5GPjhVxfF5rW4jd20bFavGt1" href="/assets/css/render.css"/>
 </head>
 <body>
-	<pre><?= htmlspecialchars($content) ?></pre>
-	<hr/>
 	<p>Lien direct:
 		<a href="<?= $classic_link ?>"><?= $classic_link ?></a>
 	</p>
 	<p>Texte brut:
 		<a href="<?= $raw_link ?>"><?= $raw_link ?></a>
 	</p>
-	<p>Ce document expire dans: <time datetime="<?= gmdate("H:i:s", $redis->ttl($key) - 1) ?>"><?= gmdate("H\Hi:s", $redis->ttl($key) - 1) ?></time></p>
+	<p>Ce document expire dans: <time datetime="<?= gmdate("H:i:s", $time_left) ?>"><?= gmdate("H\Hi:s", $time_left) ?></time></p>
 	<p>
 		<a href="/">[ Accueil ]</a>
 	</p>
+	<hr/>
+	<pre><?= htmlspecialchars($content) ?></pre>
 </body>
 </html>
