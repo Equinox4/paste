@@ -32,11 +32,10 @@ if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
 	exit(0);
 }
 
-$classic_link = 'https://paste.mjollnir.fr/v/' . htmlspecialchars($key);
-$raw_link = 'https://paste.mjollnir.fr/r/' . htmlspecialchars($key);
-
-// pour le $redis->ttl($key) - 1 plus bas: éviter l'affichage de 00H00 pour 24H
-
+$classic_link = "https://{$_SERVER['SERVER_NAME']}/v/" . htmlspecialchars($key);
+$raw_link = "https://{$_SERVER['SERVER_NAME']}/r/" . htmlspecialchars($key);
+// - 1: avoid display of 00H00 for 24H
+$time_left = $redis->ttl($key) - 1;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
