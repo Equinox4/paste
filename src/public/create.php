@@ -2,6 +2,13 @@
 declare(strict_types = 1);
 require_once dirname(__DIR__) . '/RedisConnection.php';
 
+function throwError($msg)
+{
+	header('Content-Type: text/plain; charset=UTF-8');
+	echo $msg;
+	exit(0);
+}
+
 if (empty($_POST['content']) || empty($_POST['duration']))
 {
 	header('Location: /');
@@ -16,6 +23,12 @@ const ALLOWED_DURATIONS    = [ 3_600, 7_200, 43_200, 86_400 ]; // seconds
 const UTF8 = 'UTF-8';
 const UTF16 = 'UTF-16';
 
+const INTERNAL_ERR        = 'Erreur interne, merci de bien vouloir réessayer plus tard.';
+const CONTENT_LEN_ERR     = 'Le contenu du document est trop long, la limite est de ' . MAX_CONTENT_LEN . ' caractères.';
+const CUSTOM_ID_LEN_ERR   = 'Identifiant personnalisé trop long, la limite est de ' . MAX_CUSTOM_ID_LEN . ' caractères.';
+const DURATION_ERR        = 'La durée de vie sélectionnée pour le document n\'est pas valide.';
+const CREATION_FAILED_ERR = 'La création du document a échoué :( Merci de réessayer plus tard.';
+
 $post_content  = (string) $_POST['content'];
 $post_duration = (int) $_POST['duration'];
 
@@ -23,22 +36,19 @@ $post_duration = (int) $_POST['duration'];
 $post_content_utf16 = mb_convert_encoding($post_content, UTF16, UTF8);
 if (!$post_content_utf16)
 {
-	echo 'Erreur interne';
-	exit(0);
+	throwError(INTERNAL_ERR);
 }
 
 $len_content = strlen($post_content_utf16) / 2 - mb_substr_count($post_content, "\r\n", UTF8);
 
 if ($len_content > MAX_CONTENT_LEN)
 {
-	echo 'Le contenu du document est trop long.';
-	exit(0);
+	throwError(CONTENT_LEN_ERR);
 }
 
 if (!in_array($post_duration, ALLOWED_DURATIONS))
 {
-	echo 'La durée de vie sélectionnée pour le document n\'est pas valide.';
-	exit(0);
+	throwError(DURATION_ERR);
 }
 
 if (empty($_POST['custom_id']))
@@ -51,15 +61,13 @@ else
 	$content_id_utf16 = mb_convert_encoding($content_id, UTF16, UTF8);
 	if (!$content_id_utf16)
 	{
-		echo 'Erreur interne';
-		exit(0);
+		throwError(INTERNAL_ERROR);
 	}
 
 	$len_content_id = strlen($content_id_utf16) / 2;
 	if ($len_content_id > MAX_CUSTOM_ID_LEN)
 	{
-		echo 'Identifiant personnalisé trop long.';
-		exit(0);
+		throwError(CUSTOM_ID_LEN_ERR);
 	}
 }
 
@@ -76,8 +84,7 @@ $redis = $redis_connection->connect();
 $can_create = $redis->setNx($content_id, $post_content);
 if (!$can_create)
 {
-	echo 'La création du document a échoué :( Merci de réessayer plus tard.';
-	exit(0);
+	throwError(CREATION_FAILED_ERR);
 }
 
 $redis->expire($content_id, $post_duration);
