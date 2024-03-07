@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 require_once dirname(__DIR__) . '/RedisConnection.php';
 
 function throwError($msg)
@@ -9,8 +10,7 @@ function throwError($msg)
 	exit(0);
 }
 
-if (empty($_POST['content']) || empty($_POST['duration']))
-{
+if (empty($_POST['content']) || empty($_POST['duration'])) {
 	header('Location: /');
 	exit(0);
 }
@@ -34,39 +34,32 @@ $post_duration = (int) $_POST['duration'];
 
 // Calculate textarea length from the HTML spec
 $post_content_utf16 = mb_convert_encoding($post_content, UTF16, UTF8);
-if (!$post_content_utf16)
-{
+if (!$post_content_utf16) {
 	throwError(INTERNAL_ERR);
 }
 
 $len_content = strlen($post_content_utf16) / 2 - mb_substr_count($post_content, "\r\n", UTF8);
 
-if ($len_content > MAX_CONTENT_LEN)
-{
+if ($len_content > MAX_CONTENT_LEN) {
 	throwError(CONTENT_LEN_ERR);
 }
 
-if (!in_array($post_duration, ALLOWED_DURATIONS))
-{
+if (!in_array($post_duration, ALLOWED_DURATIONS, true)) {
 	throwError(DURATION_ERR);
 }
 
-if (empty($_POST['custom_id']))
-{
+if (empty($_POST['custom_id'])) {
 	$content_id = bin2hex(random_bytes(DEFAULT_RAND_ID_LEN));
 }
-else
-{
+else {
 	$content_id = (string) $_POST['custom_id'];
 	$content_id_utf16 = mb_convert_encoding($content_id, UTF16, UTF8);
-	if (!$content_id_utf16)
-	{
+	if (!$content_id_utf16) {
 		throwError(INTERNAL_ERROR);
 	}
 
 	$len_content_id = strlen($content_id_utf16) / 2;
-	if ($len_content_id > MAX_CUSTOM_ID_LEN)
-	{
+	if ($len_content_id > MAX_CUSTOM_ID_LEN) {
 		throwError(CUSTOM_ID_LEN_ERR);
 	}
 }
@@ -75,15 +68,13 @@ $redis_user_env = getenv('REDIS_USER');
 $redis_password_env = getenv('REDIS_PASSWORD');
 
 $redis_connection = RedisConnection::getInstance();
-if ($redis_user_env && $redis_password_env)
-{
+if ($redis_user_env && $redis_password_env) {
 	$redis_connection->setCredentials($redis_user_env, $redis_password_env);
 }
 
 $redis = $redis_connection->connect();
 $can_create = $redis->setNx($content_id, $post_content);
-if (!$can_create)
-{
+if (!$can_create) {
 	throwError(CREATION_FAILED_ERR);
 }
 

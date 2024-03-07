@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 class RedisConnection
 {
@@ -16,8 +17,7 @@ class RedisConnection
 
 	public static function getInstance(?string $host = null, ?int $port = null): RedisConnection
 	{
-		if (!isset(self::$redis_connection))
-		{
+		if (!isset(self::$redis_connection)) {
 			$host ??= self::DEFAULT_HOST;
 			$port ??= self::DEFAULT_PORT;
 			self::$redis_connection = new RedisConnection($host, $port);
@@ -40,8 +40,7 @@ class RedisConnection
 	{
 		$can_connect = $this->redis->connect($this->host, $this->port);
 
-		if (!$can_connect)
-		{
+		if (!$can_connect) {
 			echo 'Can\'t connect to redis.';
 			exit(0);
 		}

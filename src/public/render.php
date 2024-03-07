@@ -1,9 +1,8 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 require_once dirname(__DIR__) . '/RedisConnection.php';
 
-if (empty($_GET['id']))
-{
+if (empty($_GET['id'])) {
 	header('Location: /');
 	exit(0);
 }
@@ -12,23 +11,20 @@ $redis_user_env = getenv('REDIS_USER');
 $redis_password_env = getenv('REDIS_PASSWORD');
 
 $redis_connection = RedisConnection::getInstance();
-if ($redis_user_env && $redis_password_env)
-{
+if ($redis_user_env && $redis_password_env) {
 	$redis_connection->setCredentials($redis_user_env, $redis_password_env);
 }
 
 $key = urldecode($_GET['id']);
 $redis = $redis_connection->connect();
 $content = $redis->get($key);
-if (!$content)
-{
+if (!$content) {
 	http_response_code(404);
 	echo 'Ce document est introuvable :/';
 	exit(0);
 }
 
-if (!empty($_GET['mode']) && $_GET['mode'] === 'raw')
-{
+if (!empty($_GET['mode']) && $_GET['mode'] === 'raw') {
 	header('Content-Type: text/plain; charset=UTF-8');
 	echo $content;
 	exit(0);
