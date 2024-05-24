@@ -28,7 +28,7 @@ body
 	font-family: sans-serif;
 	display: flex;
 	flex-direction: column;
-	max-width: 80rem;
+	max-width: 100rem;
 	padding: 0 1rem 0 1rem;
 }
 
@@ -76,9 +76,19 @@ input[type="submit"]
 	display: block;
 }
 
+#input_duration, #input_custom_id
+{
+	width: 50%;
+}
+
 legend
 {
 	margin: auto;
+	font-weight: bold;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
 }
 
 footer
