@@ -1,0 +1,14 @@
+body
+{
+	background-color: white; /* avoid wasting ink with useless bg color */
+}
+
+#document-infos, hr, header, footer
+{
+	display: none;
+}
+
+#document-content
+{
+	border-style: none;
+}
