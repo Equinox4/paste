@@ -1,5 +1,22 @@
+#document-infos a
+{
+	user-select: all; /* fuck safari */
+}
+
+#document-content
+{
+	border-top: solid 2px black;
+	border-bottom: solid 2px black;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
 pre
 {
-	overflow-x: auto;
+	overflow-x: scroll;
+	overflow-y: scroll;
 	min-height: 2rem; /* fix for broken scroll bar on firefox 106.0.5 */
+	height: calc(100vh - 22rem);
 }

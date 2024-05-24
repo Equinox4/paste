@@ -55,20 +55,32 @@ $time_left = $redis->ttl($key) - 1;
 	<meta property="og:url"         content="https://paste.mjollnir.fr">
 
 	<link href="/assets/images/icons/paste_icon_16.png" rel="icon"/>
-	<link rel="stylesheet" integrity="sha384-hxdtynUOO7Tr/2atQIx2xbhzKbVvGcXKKIAylVtB5GPjhVxfF5rW4jd20bFavGt1" href="/assets/css/render.css"/>
+
+	<link rel="stylesheet"               href="/assets/css/main.css"   integrity=""/>
+	<link rel="stylesheet"               href="/assets/css/render.css" integrity=""/>
+	<link rel="stylesheet" media="print" href="/assets/css/print_main.css"    integrity=""/>
+	<link rel="stylesheet" media="print" href="/assets/css/print_render.css"  integrity=""/>
 </head>
 <body>
-	<p>Lien direct:
-		<a href="<?= $classic_link ?>"><?= $classic_link ?></a>
-	</p>
-	<p>Texte brut:
-		<a href="<?= $raw_link ?>"><?= $raw_link ?></a>
-	</p>
-	<p>Ce document expire dans: <time datetime="<?= gmdate("H:i:s", $time_left) ?>"><?= gmdate("H\Hi:s", $time_left) ?></time></p>
-	<p>
-		<a href="/">[ Accueil ]</a>
-	</p>
-	<hr/>
-	<pre><?= htmlspecialchars($content) ?></pre>
+	<header>
+		<h1>Texte ephémère</h1>
+		<nav><a href="/">[ Accueil ]</a></nav>
+	</header>
+	<main>
+		<section id="document-infos">
+			<p>Lien direct:
+				<a href="<?= $classic_link ?>"><?= $classic_link ?></a>
+			</p>
+			<p>Texte brut:
+				<a href="<?= $raw_link ?>"><?= $raw_link ?></a>
+			</p>
+			<p>Ce document expire dans: <time datetime="<?= gmdate("H:i:s", $time_left) ?>"><?= gmdate("H\Hi:s", $time_left) ?></time></p>
+		</section>
+		<section id="document-content">
+			<pre><?= htmlspecialchars($content) ?></pre>
+		</section>
+	</main>
+	<footer>Propulsé par PHP 8 & Redis &bull; Conçu avec &hearts; en &#x1f1eb;&#x1f1f7; &bull; <a href="https://github.com/Equinox4/paste">Code source</a> &bull; <a href="https://www.mjollnir.fr/legal_information.html">Infomations légales</a>
+	</footer>
 </body>
 </html>
